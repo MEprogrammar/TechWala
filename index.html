@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>TechWala — Mobile Accessories for India</title>
+  <meta name="description" content="Shop for high-quality mobile accessories in India. Get the best deals on data cables, phone covers, earbuds, chargers, tripods, and more.">
+  <meta name="keywords" content="mobile accessories, data cables, phone covers, earbuds, headphones, tripods, screen protector, india">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>Tech Wala Store</h1>
+    <div class="search-container">
+      <input type="text" id="search" placeholder="Search accessories..." autocomplete="off">
+      <div id="search-results" class="hidden">
+      </div>
+    </div>
+    <div>
+      <button id="contact-header-btn" class="btn">📞 Contact</button> 
+      <button id="wishlist-header-btn" class="btn">❤️ Wishlist (<span id="wishlist-count">0</span>)</button> 
+      <button id="cart-header-btn" class="btn">🛒 Cart (<span id="cart-count">0</span>)</button> 
+    </div>
+  </div>
+</header>
+
+<section class="hero-slider">
+  <div class="slider-track">
+  </div>
+  <button class="slider-btn" id="prev-slide">❮</button>
+  <button class="slider-btn" id="next-slide">❯</button>
+  <div class="slider-dots">
+  </div>
+</section>
+
+<main>
+  <section>
+    <h2>Trending Mobile Accessories — Curated for India</h2>
+    <p style="margin-top:8px;color:var(--color-text-medium);">Affordable & Fast Delivery across India</p>
+    
+    <div class="filters-container">
+      <div class="categories" id="category-list"></div>
+      <div class="sort-container">
+        <label for="sort-select">Sort by Price:</label>
+        <select id="sort-select">
+          <option value="default">Default</option>
+          <option value="price-asc">Low to High</option>
+          <option value="price-desc">High to Low</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="filter-group">
+      <h3>Filter by Price</h3>
+      <div id="price-filter-list">
+      </div>
+    </div>
+    
+    <div class="grid" id="product-grid">
+      </div>
+  </section>
+
+  <aside>
+    <h2>Your Cart</h2>
+    <div id="cart-items"><p>Your cart is empty.</p></div>
+    
+    <div class="coupon-section">
+      <input type="text" id="coupon-input" placeholder="Enter coupon code">
+      <button id="apply-coupon-btn" class="btn btn-secondary">Apply</button>
+    </div>
+    
+    <div class="total-summary">
+      <p>Subtotal: ₹<span id="subtotal">0</span></p>
+      <p id="discount-line" class="hidden">Discount: -₹<span id="discount-amount">0</span></p>
+      <p id="shipping-line" class="hidden">Shipping: ₹<span id="shipping-cost">0</span></p>
+      <p style="margin-top: 8px;"><strong>Grand Total: ₹<span id="total">0</span></strong></p>
+    </div>
+    
+    <button id="order-btn" class="btn btn-primary" style="margin-top:15px;">Place Order</button>
+  </aside>
+</main>
+
+<section class="wholesale-section">
+  <h2>
+    Wholesale & Bulk Orders
+  </h2>
+  <p style="font-size: 1.1rem; color: var(--color-text-dark); line-height: 1.6;">
+    Kya aap ek mobile shop ke maalik hain ya reseller hain? <br>Humse jud kar paayein mobile accessories par sabse best bulk deals. Poore India mein fast delivery.
+  </p>
+  <p style="margin-top: 20px; font-size: 1.2rem; font-weight: 600;">
+    Abhi Call ya WhatsApp karein: 
+    <a href="https://wa.me/918869829525" target="_blank" style="color: var(--color-success); text-decoration: none;">+918869829525</a>
+  </p>
+</section>
+
+<footer>
+  <p>© <span id="year"></span> AyaanAhmad Mobilewala — Quality Accessories for India</p>
+  <p style="margin-top: 12px;">
+    <a href="https://www.instagram.com/mobilewalha?igsh=MWo0anA3aGNxdGtydw%3D%3D&utm_source=qr" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="btn btn-secondary">
+       📷 Follow us on Instagram
+    </a>
+  </p>
+  <div class="footer-links">
+    <a id="shipping-policy-btn">Shipping Policy</a>
+    <a id="refund-policy-btn">Refund Policy</a>
+    <a id="terms-policy-btn">Terms of Service</a>
+  </div>
+</footer>
+
+<div id="order-modal" class="modal hidden">
+  <div class="modal-content">
+    <button id="close-order-modal" class="close-btn">&times;</button>
+    <h3>Place Your Order</h3>
+    <p id="selected-item" style="font-weight: 600; margin-top: 5px;"></p>
+    
+    <form id="order-form" novalidate>
+      <div class="form-grid">
+        
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="name" required>
+          <p id="name-error" class="error-message"></p>
+        </div>
+        
+        <div class="form-group">
+          <label>Email ID (Optional)</label>
+          <input type="email" id="email">
+          <p id="email-error" class="error-message"></p>
+        </div>
+        
+        <div class="form-group">
+          <label>Phone Number (WhatsApp)</label>
+          <div class="phone-input-container">
+            <span class="country-code">+91</span>
+            <input type="tel" id="phone" required maxlength="10" placeholder="99XXXX0000">
+          </div>
+          <p id="phone-error" class="error-message"></p>
+        </div>
+        
+        <div class="form-group">
+          <label>PINCODE</label>
+          <input type="text" id="pincode" required maxlength="6">
+          <p id="pincode-error" class="error-message"></p>
+        </div>
+
+        <div class="form-group span-2">
+          <label>Full Address</label>
+          <textarea id="address" rows="3" required></textarea>
+          <p id="address-error" class="error-message"></p>
+        </div>
+
+        <div class="form-group">
+          <label>LANDMARK (Optional)</label>
+          <input type="text" id="landmark">
+          <p class="error-message"></p> 
+        </div>
+        
+        <div class="form-group">
+          <label>STATE</label>
+          <select id="state" required>
+            <option value="" selected disabled>Select your state</option>
+            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chandigarh">Chandigarh</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Ladakh">Ladakh</option>
+            <option value="Lakshadweep">Lakshadweep</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Puducherry">Puducherry</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>
+          </select>
+          <p id="state-error" class="error-message"></p>
+        </div>
+        
+        <div class="form-group" id="qty-group">
+          <label id="qty-label">Quantity</label>
+          <input type="number" id="qty" value="1" min="1">
+        </div>
+        
+      </div> <div id="advance-payment-details" style="margin-top:15px; padding:10px; background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: 6px; font-size: 0.9rem; color: var(--color-text-dark);">
+        <p id="modal-subtotal-line" style="font-weight: 500;">Subtotal: ₹<span id="modal-subtotal">0</span></p>
+        <p id="modal-shipping-line" style="font-weight: 500;">Shipping: ₹<span id="modal-shipping">0</span></p>
+        <p style="font-weight: 600; border-top: 1px solid #ddd; padding-top: 5px;">Total: <strong style="font-size: 1.1rem; color: #333;">₹<span id="modal-total">0</span></strong></p>
+        
+        <p style="font-weight: 600; margin-top: 10px; border-top: 1px solid #ddd; padding-top: 5px;">Advance Payment (30%): <strong style="font-size: 1.1rem; color: var(--color-link);">₹<span id="modal-advance-amount">0</span></strong></p>
+        <p style="margin-top: 5px;">Pay via UPI: <b>8869829525-2@ybl</b></p>
+        <p style="font-size: 0.85rem; margin-top: 5px; color: var(--color-text-medium);">After payment, send screenshot on WhatsApp for confirmation.</p>
+      </div>
+      
+      <button type="submit" class="btn btn-primary" style="margin-top:15px;">Confirm Order</button>
+    </form>
+  </div>
+</div>
+
+<div id="contact-modal" class="modal hidden">
+  <div class="modal-content">
+    <button id="close-contact-modal" class="close-btn">&times;</button>
+    <h3>Contact Details</h3>
+    <div class="contact-details">
+      <p><strong>Name:</strong> AYAAN AHMAD | Mobilewala</p>
+      <p><strong>Address:</strong> 📍 New Shah Complex, Shop No. 4, Etah</p>
+      <p><strong>Phone / WhatsApp:</strong> 📞 +918869829525</p>
+    </div>
+  </div>
+</div>
+
+<div id="product-modal" class="modal hidden">
+  <div class="modal-content">
+    <button id="close-product-modal" class="close-btn">&times;</button>
+    
+    <div class="product-gallery">
+      <img id="product-modal-main-img" src="" alt="Main Product Image">
+      <div id="product-modal-thumbnails">
+      </div>
+    </div>
+    
+    <h3 id="product-modal-title"></h3>
+    <p id="product-modal-price"></p>
+    <p id="product-modal-desc"></p>
+    
+    <div class="modal-buttons-container">
+      <button id="modal-add-to-cart" class="btn btn-primary">🛒 Add to Cart</button>
+      <button id="modal-share-wa" class="btn">Share</button>
+    </div>
+    
+  </div>
+</div>
+
+<div id="wishlist-modal" class="modal hidden">
+  <div class="modal-content">
+    <button id="close-wishlist-modal" class="close-btn">&times;</button>
+    <h3>Your Wishlist</h3>
+    <div id="wishlist-items" style="margin-top: 15px;">
+    </div>
+  </div>
+</div>
+
+<div id="shipping-policy-modal" class="modal hidden">
+  <div class="modal-content policy-modal-content">
+    <button class="close-btn">&times;</button>
+    <h3>Shipping Policy</h3>
+    <h4>Delivery Time</h4>
+    <p>Orders are typically processed within 1-2 business days. Delivery across India usually takes 3-7 business days depending on your location.</p>
+    <h4>Shipping Costs</h4>
+    <p>We offer a flat shipping fee of ₹50 on all orders below ₹500. All orders of ₹500 or more qualify for FREE shipping.</p>
+  </div>
+</div>
+
+<div id="refund-policy-modal" class="modal hidden">
+  <div class="modal-content policy-modal-content">
+    <button class="close-btn">&times;</button>
+    <h3>Refund Policy</h3>
+    <h4>7-Day Returns</h4>
+    <p>We accept returns within 7 days of delivery, provided the product is in its original condition and packaging. To initiate a return, please contact us on WhatsApp at +918869829525 with your order details.</p>
+    <h4>Refunds</h4>
+    <p>Once we receive and inspect your returned item, we will notify you of the approval or rejection of your refund. If approved, your refund will be processed via UPI or bank transfer within 3-5 business days.</p>
+  </div>
+</div>
+
+<div id="terms-policy-modal" class="modal hidden">
+  <div class="modal-content policy-modal-content">
+    <button class="close-btn">&times;</button>
+    <h3>Terms of Service</h3>
+    <h4>1. General</h4>
+    <p>By using our website, you agree to these terms. Please read them carefully. All orders are subject to availability and confirmation of the order price.</p>
+    <h4>2. Payment</h4>
+    <p>We require a 30% advance payment to confirm your order. The remaining balance must be paid as Cash on Delivery (COD) at the time of delivery.</p>
+    <h4>3. Product Information</h4>
+    <p>We try to be as accurate as possible, but we do not warrant that product descriptions or other content is error-free. If a product is not as described, your sole remedy is to return it in unused condition.</p>
+  </div>
+</div>
+
+<button id="back-to-top-btn" class="hidden" title="Go to top">⬆</button>
+
+<div id="toast" class=""></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
